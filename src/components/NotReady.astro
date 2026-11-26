@@ -1,0 +1,20 @@
+---
+interface Props {
+  title: string;
+  /** Names of the site.config.mjs fields that are still empty. */
+  fields: string;
+}
+const { title, fields } = Astro.props;
+---
+
+<div class="wrap page">
+  <h1>{title}</h1>
+  <p>This page isn’t available yet.</p>
+  {
+    import.meta.env.DEV && (
+      <p class="dev-note">
+        Owner note (shown only while running <code>npm run dev</code>): fill in {fields} in <code>site.config.mjs</code> to publish this page.
+      </p>
+    )
+  }
+</div>

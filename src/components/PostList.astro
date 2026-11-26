@@ -1,0 +1,30 @@
+---
+import type { Article } from '../lib/posts';
+import { postPath } from '../lib/posts';
+import { formatDate, isoDate } from '../lib/site';
+
+interface Props {
+  posts: Article[];
+  /** Heading level for article titles (2 on the blog page, 3 under a section heading). */
+  level?: 2 | 3;
+}
+const { posts, level = 2 } = Astro.props;
+const Heading = `h${level}`;
+---
+
+<ol class="ledger">
+  {
+    posts.map((post) => (
+      <li class="ledger-item">
+        <p class="ledger-meta">
+          <time datetime={isoDate(post.data.publishDate)}>{formatDate(post.data.publishDate)}</time>
+          <span class="ledger-category">{post.data.category}</span>
+        </p>
+        <Heading class="ledger-title">
+          <a href={postPath(post)}>{post.data.title}</a>
+        </Heading>
+        <p class="ledger-desc">{post.data.description}</p>
+      </li>
+    ))
+  }
+</ol>

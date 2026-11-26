@@ -1,0 +1,122 @@
+---
+// The policy text is generated from what this site actually does, according to
+// site.config.mjs. If you add analytics, ads or forms, update the config AND review this text.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NotReady from '../components/NotReady.astro';
+import { site, ready, adsense, operatorName, formatDate } from '../lib/site';
+
+const showAds = adsense.loadScript;
+const usesAnalytics = site.privacy.usesAnalytics;
+const updated = ready.privacy ? formatDate(new Date(site.privacy.effectiveDate)) : '';
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description={`How ${site.siteName} handles visitor information, hosting data, cookies and advertising.`}
+  path="/privacy/"
+  noindex={!ready.privacy}
+>
+  {
+    ready.privacy ? (
+      <div class="wrap page">
+        <h1>Privacy Policy</h1>
+        <p class="article-meta"><span>Last updated: {updated}</span></p>
+        <div class="prose">
+          <h2>Who we are</h2>
+          <p>
+            {site.siteName} ({site.siteUrl}) is operated by {operatorName}. For questions about this policy, email{' '}
+            <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>.
+          </p>
+
+          <h2>What this site collects directly</h2>
+          <p>
+            This site has no user accounts, comments, contact forms or newsletter sign-ups, so it does not collect
+            personal information through the site itself. The site does not set its own cookies.
+          </p>
+
+          <h2>Hosting and server logs</h2>
+          <p>
+            This site is hosted on Cloudflare Pages. When you visit, Cloudflare receives technical information such as
+            your IP address, browser type, device and the pages you request, and uses it to deliver the site, keep it
+            secure and prevent abuse. See the{' '}
+            <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">Cloudflare Privacy Policy</a> for details.
+          </p>
+
+          <h2>Analytics</h2>
+          {
+            usesAnalytics ? (
+              <p>
+                We use {site.privacy.analyticsName} to measure how many people visit and which pages are read. This may
+                involve processing technical information such as your IP address, browser and the pages you view. See
+                the provider’s privacy policy for details.
+              </p>
+            ) : (
+              <p>This site does not use analytics or tracking tools.</p>
+            )
+          }
+
+          <h2>Advertising</h2>
+          {
+            showAds ? (
+              <>
+                <p>
+                  We use Google AdSense to show ads on article pages. Google and its partners, as third-party vendors,
+                  use cookies and similar technologies to serve ads based on your visits to this site and other
+                  websites. You can opt out of personalized advertising in{' '}
+                  <a href="https://adssettings.google.com" rel="noopener">Google Ads Settings</a>. To learn how Google
+                  uses information from sites that use its services, see{' '}
+                  <a href="https://policies.google.com/technologies/partner-sites" rel="noopener">
+                    How Google uses information from sites or apps that use our services
+                  </a>
+                  .
+                </p>
+                {site.privacy.consentConfirmed && (
+                  <p>
+                    Where the law requires it, such as in the European Economic Area and the United Kingdom, ads and
+                    related cookies are used according to the choice you make in the consent message on this site. You
+                    can change that choice later using the privacy settings control provided on this site.
+                  </p>
+                )}
+              </>
+            ) : (
+              <p>This site does not currently show advertising.</p>
+            )
+          }
+
+          <h2>If you email us</h2>
+          <p>
+            If you send an email, we use your email address and message only to reply and to keep a record of the
+            conversation.
+          </p>
+
+          <h2>Links to other sites</h2>
+          <p>
+            Articles may link to other websites. We don’t control them and aren’t responsible for their privacy
+            practices.
+          </p>
+
+          <h2>Children</h2>
+          <p>
+            This site is not directed at children under 13, and we do not knowingly collect personal information from
+            children.
+          </p>
+
+          <h2>Your choices and rights</h2>
+          <p>
+            Depending on where you live, you may have rights over personal data held about you, such as access or
+            deletion. Because this site does not collect personal data directly, such requests may need to go to the
+            providers named above. You can also email us with questions.
+          </p>
+
+          <h2>Changes to this policy</h2>
+          <p>
+            We will update this policy when the site changes, for example if we add analytics or advertising. The date
+            at the top shows when it last changed.
+          </p>
+        </div>
+      </div>
+    ) : (
+      <NotReady title="Privacy Policy" fields="contactEmail, privacy.operatorName (or author.name) and privacy.effectiveDate" />
+    )
+  }
+</BaseLayout>

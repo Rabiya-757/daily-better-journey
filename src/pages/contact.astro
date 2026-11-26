@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NotReady from '../components/NotReady.astro';
+import { site, ready } from '../lib/site';
+---
+
+<BaseLayout
+  title="Contact"
+  description={`How to contact ${site.siteName} by email with questions, corrections or feedback.`}
+  path="/contact/"
+  noindex={!ready.contact}
+>
+  {
+    ready.contact ? (
+      <div class="wrap page">
+        <h1>Contact</h1>
+        <div class="prose">
+          <p>
+            Send questions, corrections or feedback by email to{' '}
+            <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>.
+          </p>
+          <p>Please don’t include sensitive personal information in your message.</p>
+        </div>
+      </div>
+    ) : (
+      <NotReady title="Contact" fields="contactEmail" />
+    )
+  }
+</BaseLayout>

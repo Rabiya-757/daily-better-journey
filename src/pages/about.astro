@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NotReady from '../components/NotReady.astro';
+import { site, ready } from '../lib/site';
+
+const bio = site.author.bio.filter(Boolean);
+const note = site.editorialNote.filter(Boolean);
+---
+
+<BaseLayout
+  title="About"
+  description={`About ${site.siteName}: what the blog covers and who writes it.`}
+  path="/about/"
+  noindex={!ready.about}
+>
+  {
+    ready.about ? (
+      <div class="wrap page">
+        <h1>About {site.siteName}</h1>
+        <div class="prose">
+          <p>{site.description}</p>
+
+          <h2>What you’ll find here</h2>
+          <p>
+            Articles on productivity, focus, motivation and building consistent habits, written to be practical:
+            ideas you can test in your own routine.
+          </p>
+
+          <h2>About the author</h2>
+          <p><strong>{site.author.name}</strong></p>
+          {bio.map((paragraph) => <p>{paragraph}</p>)}
+          {site.author.url && <p><a href={site.author.url} rel="me noopener">More about {site.author.name}</a></p>}
+
+          {
+            note.length > 0 && (
+              <>
+                <h2>How articles are written</h2>
+                {note.map((paragraph) => <p>{paragraph}</p>)}
+              </>
+            )
+          }
+
+          <h2>Get in touch</h2>
+          <p>Questions, corrections or feedback are welcome. See the <a href="/contact/">contact page</a>.</p>
+        </div>
+      </div>
+    ) : (
+      <NotReady title="About" fields="author.name and author.bio" />
+    )
+  }
+</BaseLayout>

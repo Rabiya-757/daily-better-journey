@@ -1,0 +1,83 @@
+---
+// Renders every published article. The address is /blog/<slug>/ by default,
+// or the `url:` from the article's front matter (used to keep old URLs).
+import { render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import RelatedPosts from '../components/RelatedPosts.astro';
+import { getPublishedPosts, postRouteParam, postPath, readingMinutes, relatedPosts } from '../lib/posts';
+import { site, absoluteUrl, formatDate, isoDate } from '../lib/site';
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+  return posts.map((post) => ({
+    params: { path: postRouteParam(post) },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const all = await getPublishedPosts();
+const related = relatedPosts(post, all);
+
+const path = postPath(post);
+const canonical = absoluteUrl(path);
+const authorName = post.data.author || site.author.name;
+const published = isoDate(post.data.publishDate);
+const updated = post.data.updatedDate ? isoDate(post.data.updatedDate) : undefined;
+const showUpdated = Boolean(updated && updated !== published);
+const updatedLabel = post.data.updatedDate ? formatDate(post.data.updatedDate) : '';
+
+// BlogPosting data is built only from this article's real front matter and your config.
+const jsonLd: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  url: canonical,
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+  datePublished: published,
+  dateModified: updated ?? published,
+  inLanguage: site.language,
+  articleSection: post.data.category,
+  publisher: { '@type': 'Organization', name: site.siteName, url: absoluteUrl('/') },
+};
+if (authorName) {
+  jsonLd.author = { '@type': 'Person', name: authorName, ...(site.author.url ? { url: site.author.url } : {}) };
+}
+if (post.data.tags.length) jsonLd.keywords = post.data.tags.join(', ');
+if (post.data.image) jsonLd.image = [absoluteUrl(post.data.image)];
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  path={path}
+  type="article"
+  image={post.data.image}
+  imageAlt={post.data.imageAlt}
+  publishedTime={published}
+  modifiedTime={updated ?? published}
+  category={post.data.category}
+  jsonLd={jsonLd}
+  showAds
+>
+  <article class="wrap page article">
+    <header class="article-header">
+      <p class="article-category">{post.data.category}</p>
+      <h1>{post.data.title}</h1>
+      <p class="article-meta">
+        {authorName && <span>By {authorName}</span>}
+        <span>Published <time datetime={published}>{formatDate(post.data.publishDate)}</time></span>
+        {showUpdated && <span>Updated <time datetime={updated}>{updatedLabel}</time></span>}
+        <span>{readingMinutes(post)} min read</span>
+      </p>
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <RelatedPosts posts={related.posts} matched={related.matched} />
+  </article>
+</BaseLayout>

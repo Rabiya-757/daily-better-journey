@@ -1,0 +1,8 @@
+# Cloudflare Pages redirects. One rule per line:  /old-path  /new-path/  301
+#
+# IMPORTANT: leave this file with NO active rules until you have confirmed
+# each old URL (see docs/IMPORT-ARTICLES.md). Run `npm run urls -- old-urls.txt`
+# to see which old URLs already match a new page and which need a rule.
+#
+# Example (remove the leading # only after confirming the old URL is real):
+# /old-post-name  /blog/new-post-name/  301

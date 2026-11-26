@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostList from '../components/PostList.astro';
+import { site } from '../lib/site';
+import { getPublishedPosts } from '../lib/posts';
+
+const posts = (await getPublishedPosts()).slice(0, 6);
+const empty = posts.length === 0;
+---
+
+<BaseLayout title={site.homeTitle} fullTitle description={site.description} path="/" noindex={empty}>
+  <section class="hero">
+    <div class="wrap">
+      <h1>{site.heroTitle}</h1>
+      <p class="lead">{site.heroText}</p>
+    </div>
+  </section>
+
+  <section class="wrap section" aria-labelledby="latest-heading">
+    <h2 id="latest-heading">Latest articles</h2>
+    {
+      empty ? (
+        <p class="empty">The first articles are on their way. Check back soon.</p>
+      ) : (
+        <>
+          <PostList posts={posts} level={3} />
+          <p class="more"><a href="/blog/">See all articles</a></p>
+        </>
+      )
+    }
+  </section>
+</BaseLayout>

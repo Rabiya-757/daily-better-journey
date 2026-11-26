@@ -1,0 +1,22 @@
+{
+  "name": "daily-better-journey",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Daily Better Journey: a static Astro blog about practical productivity, focus, motivation and habits.",
+  "engines": {
+    "node": ">=20.3.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "node scripts/check-launch.mjs && astro build",
+    "preview": "astro preview",
+    "check:launch": "node scripts/check-launch.mjs",
+    "new": "node scripts/new-article.mjs",
+    "urls": "node scripts/list-urls.mjs",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.8.0"
+  }
+}
