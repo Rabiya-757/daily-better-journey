@@ -27,29 +27,33 @@ export default {
   language: 'en',
 
   // Browser/search title of the home page (keep under ~60 characters).
-  homeTitle: 'Daily Better Journey | Practical Productivity, Focus and Habits',
+  homeTitle: 'Daily Better Journey | Your Space For Real Growth',
 
   // Used for the default meta description and social previews.
-  tagline: 'Practical notes on productivity, focus, motivation and lasting habits.',
+  tagline: 'Daily Better Journey | Your Space For Real Growth',
   description:
-    'Daily Better Journey is a blog about practical productivity, focus, motivation and building habits you can keep.',
+    'Find guidance, reflections, and practical steps that support steady self-improvement. Empower your mindset, strengthen your habits, and create lasting change. ',
 
   // Home page hero text. Edit freely.
-  heroTitle: 'Focus, motivation and habits you can keep.',
+  heroTitle: 'Shape Days That Feel Truly Yours',
   heroText:
-    'Daily Better Journey is a blog about practical productivity: small, repeatable changes you can try in your own week.',
+    'Daily Better Journey is a blog about practical productivity: Discover small, simple habits that turn everyday moments into tiny wins and gradually build real, lasting momentum in your life. ',
 
   // ---- YOUR real author details (required before About page goes live) -----
   author: {
-    name: '', // e.g. your real name or the name you publish under
+    name: 'Rabiya Khan', // e.g. your real name or the name you publish under
     // One string per paragraph. Write only what is true.
-    bio: [],
+    bio: 'Author of Daily Better Journey | Personal Growth Writer | Life Coach',
     // Optional: a real page about you (LinkedIn, personal site). Leave "" if none.
     url: '',
   },
 
   // Optional paragraph(s) on how you write/edit/correct articles. Leave [] if none.
-  editorialNote: [],
+  editorialNote: 'About the Author
+Rabiya Khan is the author and creator of Daily Better Journey, a personal growth platform dedicated to helping individuals build discipline, clarity, and a more meaningful life through small, consistent actions.
+She holds a Bachelor’s degree in Computer Science, which has shaped her structured and analytical way of thinking. Alongside her technical background, she has developed a deep and long-standing interest in self-help literature, psychology, and human behavior, which forms the foundation of her writing.
+A significant influence in her journey is her mother, who holds a Master’s degree in Psychology and has played a vital mentoring role in her life. Through her guidance, Rabiya has gained valuable insights into emotional intelligence, mindset patterns, and elements of human development that strongly reflect in her content and writing style.
+Her mission is to simplify personal growth and make it practical, relatable, and achievable for everyday readers.',
 
   // ---- YOUR real contact email (required before Contact page goes live) ----
   contactEmail: '',
