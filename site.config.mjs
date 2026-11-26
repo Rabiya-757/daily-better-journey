@@ -56,7 +56,7 @@ A significant influence in her journey is her mother, who holds a Master’s deg
 Her mission is to simplify personal growth and make it practical, relatable, and achievable for everyday readers.',
 
   // ---- YOUR real contact email (required before Contact page goes live) ----
-  contactEmail: '',
+  contactEmail: 'rabiyakhanimn@gmail.com',
 
   // ---- Privacy policy facts (required before Privacy page goes live) -------
   privacy: {
